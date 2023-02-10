@@ -17,6 +17,24 @@ services:
       MARIADB_ROOT_PASSWORD: 1234
     volumes:
       - ./db/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
-#    networks:
-#      - backend
-#    restart: always
+    restart: always
+    networks:
+      - compose_network
+
+  applications:
+    image: memo/memorize-everything:0.0.1
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    container_name: application
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/memorize
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+    networks:
+      - compose_network
+
+networks:
+  compose_network:
