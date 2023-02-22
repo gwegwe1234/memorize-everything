@@ -1,4 +1,4 @@
-package com.example.memorizeeverything
+package com.memorize.everything
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
