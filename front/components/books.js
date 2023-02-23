@@ -7,7 +7,7 @@ function Books() {
 
   useEffect(() => {
     setLoading(true)
-    fetch('http://back/book')
+    fetch('http://gwegwe1234.synology.me:8080/book')
       .then((res) => res.json())
       .then((json) => {
         if (json.statusCode == 400) {

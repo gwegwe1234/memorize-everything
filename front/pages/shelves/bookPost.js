@@ -17,7 +17,7 @@ export default function BookPost() {
 
         const JSONdata = JSON.stringify(data)
 
-        const endpoint = 'http://back/book/info'
+        const endpoint = 'http://gwegwe1234.synology.me:8080/book/info'
 
         const options = {
             method: 'POST',
