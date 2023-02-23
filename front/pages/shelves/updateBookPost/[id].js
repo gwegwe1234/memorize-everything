@@ -17,7 +17,7 @@ export default function updateBookPost() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/book/info?id=${id}`);
+                const response = await fetch(`http://back/book/info?id=${id}`);
                 const res = await response.json();
                 setData(res.data);
             } catch (error) {
@@ -52,7 +52,7 @@ export default function updateBookPost() {
 
             const JSONdata = JSON.stringify(data)
 
-            const endpoint = 'http://localhost:8080/book/info'
+            const endpoint = 'http://back/book/info'
 
             if (action === 'update') {
                 const options = {

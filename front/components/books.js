@@ -7,7 +7,7 @@ function Books() {
 
   useEffect(() => {
     setLoading(true)
-    fetch('http://localhost:8080/book')
+    fetch('http://back/book')
       .then((res) => res.json())
       .then((json) => {
         if (json.statusCode == 400) {

@@ -17,7 +17,7 @@ export default function BookPost() {
 
         const JSONdata = JSON.stringify(data)
 
-        const endpoint = 'http://localhost:8080/book/info'
+        const endpoint = 'http://back/book/info'
 
         const options = {
             method: 'POST',
