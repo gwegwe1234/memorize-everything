@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  db:
+    image: mariadb:10
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_DATABASE: memorize
+      MARIADB_USER: gt
+      MARIADB_PASSWORD: 1234
+      MARIADB_ROOT_PASSWORD: 1234
+    volumes:
+      - ./db/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - mysql-data:/var/lib/mysql
+    restart: always
+    networks:
+      - compose_network
+  back:
+    image: memorize-everything-back:0.1
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    container_name: back
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/memorize
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+    networks:
+      - compose_network
+  front:
+    image: memorize-everything-front:0.1
+    restart: always
+    ports:
+      - 3000:3000
+    container_name: front
+volumes:
+  mysql-data:
+    external: true
+
+networks:
+  compose_network:
