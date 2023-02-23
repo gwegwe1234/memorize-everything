@@ -36,6 +36,8 @@ services:
     ports:
       - 3000:3000
     container_name: front
+    networks:
+      - compose_network
 volumes:
   mysql-data:
     external: true
