@@ -5,4 +5,4 @@ spring:
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
 cors:
-  originPatterns: http://localhost:3000
+  originPatterns: http://gwegwe1234.synology.me:3000
