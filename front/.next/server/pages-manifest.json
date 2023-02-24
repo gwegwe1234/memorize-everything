@@ -2,5 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/shelves/updateBookPost/[id]": "pages/shelves/updateBookPost/[id].js"
+  "/shelves/bookPost": "pages/shelves/bookPost.js"
 }

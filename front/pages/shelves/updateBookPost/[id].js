@@ -2,6 +2,7 @@ import Layout from "../../../components/layout";
 import Head from 'next/head';
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
+import { getUrl } from "../../../env/getUrl";
 
 export default function updateBookPost() {
     const [inputValue, setInputValue] = useState("")
@@ -11,13 +12,14 @@ export default function updateBookPost() {
     const [data, setData] = useState(null)
 
     const router = useRouter();
+    const url = getUrl();
 
     const { id } = router.query;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://gwegwe1234.synology.me:8080/book/info?id=${id}`);
+                const response = await fetch(`${url}/book/info?id=${id}`);
                 const res = await response.json();
                 setData(res.data);
             } catch (error) {
@@ -52,7 +54,7 @@ export default function updateBookPost() {
 
             const JSONdata = JSON.stringify(data)
 
-            const endpoint = 'http://gwegwe1234.synology.me:8080/book/info'
+            const endpoint = `${url}/book/info`
 
             if (action === 'update') {
                 const options = {
@@ -66,7 +68,6 @@ export default function updateBookPost() {
                 await fetch(endpoint, options)
                     .then((res) => res.json())
                     .then((json) => {
-                        console.log(json)
                         if (json.status == 400) {
                             alert(json.message)
                         } else {
@@ -85,7 +86,6 @@ export default function updateBookPost() {
                 await fetch(deleteUrl, options)
                     .then((res) => res.json())
                     .then((json) => {
-                        console.log(json)
                         if (json.status == 400) {
                             alert(json.message)
                         } else {

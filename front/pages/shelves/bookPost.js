@@ -2,10 +2,12 @@ import Layout from "../../components/layout";
 import Head from 'next/head';
 import PrettyButton from "../../lib/prettyButton";
 import { useRouter } from 'next/router';
+import { getUrl } from "../../env/getUrl";
 
 export default function BookPost() {
     const router = useRouter();
-
+    const url = getUrl();
+    
     const handleSubmit = async (event) => {
         event.preventDefault()
 
@@ -17,7 +19,7 @@ export default function BookPost() {
 
         const JSONdata = JSON.stringify(data)
 
-        const endpoint = 'http://gwegwe1234.synology.me:8080/book/info'
+        const endpoint = `${url}/book/info`
 
         const options = {
             method: 'POST',
