@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
@@ -92,25 +91,55 @@ class BookTest {
         assertEquals("책 4", result.title)
     }
 
-//    @Test
-//    @DisplayName("책 입력 - 실패")
-//    fun insert_book_fail() {
-//        //given
-//        val requestBook = RequestBook("책 4", "책 4 내용", "경제")
-//        val book = Book.from(requestBook)
-//
-//        //stubs
-//        Mockito.`when`(bookRepository.findBookByTitle(requestBook.title)).thenReturn(book)
-//        Mockito.`when`(bookRepository.save(book)).thenReturn(book)
-//        Mockito.`when`(bookService.insertBook(requestBook))
-//            .thenThrow(MemorizeException(BOOK_ALREADY_REGISTERED))
-//
-//        //execute
-//        val exception = assertThrows(MemorizeException::class.java) {
-//            bookService.insertBook(requestBook)
-//        }
-//
-//        //then
-//        assertEquals(BOOK_ALREADY_REGISTERED, exception.message)
-//    }
+    @Test
+    @DisplayName("책 입력 - 실패")
+    fun insert_book_fail() {
+        //given
+        val requestBook = RequestBook("책 4", "책 4 내용", "경제")
+        val book = Book.from(requestBook)
+
+        //stubs
+        Mockito.`when`(bookRepository.findBookByTitle(requestBook.title)).thenReturn(book)
+
+        //execute
+        val exception = assertThrows(MemorizeException::class.java) {
+            bookService.insertBook(requestBook)
+        }
+
+        //then
+        assertEquals(BOOK_ALREADY_REGISTERED, exception.message)
+    }
+
+    @Test
+    @DisplayName("책 삭제")
+    fun delete_book_by_title() {
+        //given
+        val title = "책 3"
+
+        //stubs
+        Mockito.`when`(bookRepository.deleteBookByTitle(title)).thenReturn(1)
+
+        //execute
+        val result = bookService.deleteBookByTitle(title)
+
+        //then
+        assertEquals(true, result)
+    }
+
+    @Test
+    @DisplayName("책 업데이트")
+    fun upate_book() {
+        //given
+        val requestBook = RequestBook("책 2", "책 2 내용 업데이트", "경제")
+        val book = Book.putAllById(2, requestBook)
+
+        //stubs
+        Mockito.`when`(bookRepository.findBookByTitle(requestBook.title)).thenReturn(book)
+        Mockito.`when`(bookRepository.save(book)).thenReturn(book)
+        //execute
+        val result = bookService.updateBook(requestBook)
+
+        //then
+        assertEquals("책 2 내용 업데이트", result.summary)
+    }
 }
