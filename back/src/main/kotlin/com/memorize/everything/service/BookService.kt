@@ -7,9 +7,7 @@ import com.memorize.everything.common.model.MemorizeException
 import com.memorize.everything.model.book.Book
 import com.memorize.everything.model.book.RequestBook
 import com.memorize.everything.repository.BookRepository
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
-import java.lang.IllegalStateException
 
 @Component
 class BookService(private val bookRepository: BookRepository) {

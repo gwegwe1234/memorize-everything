@@ -4,6 +4,7 @@ import com.memorize.everything.common.support.ApiResponse
 import com.memorize.everything.model.book.Book
 import com.memorize.everything.model.book.RequestBook
 import com.memorize.everything.service.BookService
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/book")
+@PreAuthorize("hasRole('ADMIN')")
 class BookController(private val bookService: BookService) {
 
     @GetMapping("")
