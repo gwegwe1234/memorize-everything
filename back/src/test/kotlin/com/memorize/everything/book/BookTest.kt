@@ -128,7 +128,7 @@ class BookTest {
 
     @Test
     @DisplayName("책 업데이트")
-    fun upate_book() {
+    fun update_book() {
         //given
         val requestBook = RequestBook("책 2", "책 2 내용 업데이트", "경제")
         val book = Book.putAllById(2, requestBook)
