@@ -24,6 +24,8 @@ class SecurityConfig(
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .cors()
+            .and()
             .csrf()
             .disable()
             .authorizeHttpRequests { authz ->

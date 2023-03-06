@@ -1,26 +1,36 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { getUrl } from '../env/getUrl'
+import { getToken } from './token'
 
 function Books() {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
   const url = getUrl()
+  const token = getToken()
 
   useEffect(() => {
-    setLoading(true)
-    fetch(`${url}/book`)
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.statusCode == 400) {
-          alert(json.message)
-        } else {
-          setData(json.data)
-          setLoading(false)
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const options = {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
         }
-        
-      })
-  }, [])
+
+        const response = await fetch(`${url}/book`, options)
+        const res = await response.json()
+        setData(res.data)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData()
+  }, [token])
 
   if (isLoading) return <p>Loading...</p>
   if (!data) return <p>No profile data</p>
@@ -42,11 +52,11 @@ function Books() {
               <td>{id}</td>
               <td>
                 <Link href={{
-                    pathname: '/shelves/updateBookPost',
-                    query: { id: id },
-                  }}
-                    as={`/shelves/updateBookPost/${id}`}>
-                    {title}
+                  pathname: '/shelves/updateBookPost',
+                  query: { id: id },
+                }}
+                  as={`/shelves/updateBookPost/${id}`}>
+                  {title}
                 </Link>
               </td>
               {/* <td>{summary}</td>

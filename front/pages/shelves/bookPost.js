@@ -3,11 +3,14 @@ import Head from 'next/head';
 import PrettyButton from "../../lib/prettyButton";
 import { useRouter } from 'next/router';
 import { getUrl } from "../../env/getUrl";
+import { getToken } from "../../components/token";
+import ProtectedRoute from "../protectedRoute";
 
 export default function BookPost() {
     const router = useRouter();
     const url = getUrl();
-    
+    const token = getToken();
+
     const handleSubmit = async (event) => {
         event.preventDefault()
 
@@ -25,6 +28,7 @@ export default function BookPost() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSONdata,
         }
@@ -71,6 +75,7 @@ export default function BookPost() {
                     <br />
                     <PrettyButton type="submit">등록</PrettyButton>
                 </form>
+                <ProtectedRoute />
             </Layout>
         </div>
     )

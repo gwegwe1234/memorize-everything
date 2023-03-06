@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout, {siteTitle} from '../components/layout';
 import utilStyles from '../styles/utils.module.css';
+import ProtectedRoute from './protectedRoute';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <section className={utilStyles.headingMd}>
         <h2><a className={utilStyles.headingLg } href="/shelves/book" > 책장 </a></h2>
       </section>
+      <ProtectedRoute />
     </Layout>
   );
 }

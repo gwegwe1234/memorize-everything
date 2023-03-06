@@ -6,14 +6,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
+import java.util.Base64
 
 @Component
 class MemorizeAuthProvider(
     private val userDetailsService: UserDetailsService
 ) : AuthenticationProvider {
     override fun authenticate(authentication: Authentication): Authentication {
-        val username = authentication.name
-        val password = authentication.credentials.toString()
+        val username = decodeBase64(authentication.name)
+        val password = decodeBase64(authentication.credentials.toString())
         val userDetails = userDetailsService.loadUserByUsername(username)
 
         if (password != userDetails.password) {
@@ -27,5 +28,9 @@ class MemorizeAuthProvider(
 
     override fun supports(authentication: Class<*>?): Boolean {
         return authentication == UsernamePasswordAuthenticationToken::class.java
+    }
+
+    private fun decodeBase64(encodedString: String) : String{
+        return String(Base64.getDecoder().decode(encodedString))
     }
 }

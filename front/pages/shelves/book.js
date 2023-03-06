@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Layout from '../../components/layout';
 import Books from '../../components/books';
+import ProtectedRoute from '../protectedRoute';
 
 export default function Book() {
 
@@ -17,7 +18,7 @@ export default function Book() {
             <br/>
             <br/>
             <Books></Books>
-
+            <ProtectedRoute />
         </Layout>
     );
 }
