@@ -2,7 +2,6 @@ package com.memorize.everything.common.security.filter
 
 import com.memorize.everything.common.util.JwtUtils
 import lombok.extern.slf4j.Slf4j
-import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletResponse
 
 @Slf4j
 @Component
-class MemorizeAuthFilter(private val authenticationProvider: AuthenticationProvider): OncePerRequestFilter() {
+class MemorizeAuthFilter: OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,

@@ -3,11 +3,14 @@ import Image from 'next/image';
 import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
+import { getToken } from './token';
 
 const name = '뭐든 기록하는 사이트';
 export const siteTitle = 'Memorize Everything';
 
 export default function Layout({ children, home }) {
+  const token = getToken()
+
   return (
     <div className={styles.container}>
       <Head>
@@ -59,7 +62,16 @@ export default function Layout({ children, home }) {
         )}
       </header>
       <main>{children}</main>
-      {!home && (
+      {token && (
+        <div className={styles.backToHome}>
+          <Link href="/logout">
+            <button id="right-button">로그아웃</button>
+          </Link>
+          </div>
+          
+      )}
+
+      {!home && token && (
         <div className={styles.backToHome}>
           <Link href="/">← Back to home</Link>
         </div>

@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
 import { getUrl } from "../../../env/getUrl";
+import { getToken } from "../../../components/token";
+import ProtectedRoute from "../../protectedRoute";
 
 export default function updateBookPost() {
     const [inputValue, setInputValue] = useState("")
@@ -13,13 +15,22 @@ export default function updateBookPost() {
 
     const router = useRouter();
     const url = getUrl();
+    const token = getToken();
 
     const { id } = router.query;
 
     useEffect(() => {
+        console.log(token)
+        
         const fetchData = async () => {
             try {
-                const response = await fetch(`${url}/book/info?id=${id}`);
+                const options = {
+                    method: 'GET',
+                    headers: {
+                      'Authorization': `Bearer ${token}`,
+                    }
+                }
+                const response = await fetch(`${url}/book/info?id=${id}`, options);
                 const res = await response.json();
                 setData(res.data);
             } catch (error) {
@@ -137,6 +148,7 @@ export default function updateBookPost() {
                     </form>
                 }
                 {!data && <p>Cout not find book with Id {id} </p>}
+                <ProtectedRoute />
             </Layout>
         </div>
     )
