@@ -1,7 +1,2 @@
 cors:
   originPatterns: http://localhost:3000
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
