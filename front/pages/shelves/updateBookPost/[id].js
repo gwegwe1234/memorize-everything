@@ -20,8 +20,6 @@ export default function updateBookPost() {
     const { id } = router.query;
 
     useEffect(() => {
-        console.log(token)
-        
         const fetchData = async () => {
             try {
                 const options = {
@@ -72,6 +70,7 @@ export default function updateBookPost() {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSONdata,
                 }
@@ -90,6 +89,9 @@ export default function updateBookPost() {
             } else if (action === 'delete') {
                 const options = {
                     method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                 }
 
                 const deleteUrl = endpoint + `?title=${data.title}`

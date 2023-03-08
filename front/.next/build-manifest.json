@@ -29,6 +29,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/shelves/book.js"
+    ],
+    "/shelves/updateBookPost/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/shelves/updateBookPost/[id].js"
     ]
   },
   "ampFirstPages": []
